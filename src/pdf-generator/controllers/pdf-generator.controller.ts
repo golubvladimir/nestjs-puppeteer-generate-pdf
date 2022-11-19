@@ -23,7 +23,17 @@ export class PdfGeneratorController {
   }
 
   @Get('document-with-cover')
-  getDocumentWithCover() {
-    return this.pdfGeneratorService.getDocumentWithCover();
+  async getDocumentWithCover(
+    @Response() res
+  ) {
+    const documentWithCoverBuffer = await this.pdfGeneratorService.getDocumentWithCover();
+
+    return res
+      .set('Content-Type', 'application/octet-stream')
+      .set(
+        'Content-Disposition',
+        `inline; filename="document_with_cover.pdf"`
+      )
+      .send(documentWithCoverBuffer);
   }
 }
