@@ -25,6 +25,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "handlebars": "^4.7.7",
+    "pdf-merger-js": "^4.1.2",
     "puppeteer": "^19.2.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
