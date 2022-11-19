@@ -7,7 +7,27 @@ import puppeteer  from 'puppeteer';
 @Injectable()
 export class PdfGeneratorService {
 
-  generateDocument() {
+  async generatePDF(contentDocument, options) {
+    const browser = await puppeteer.launch({
+      headless: true
+    });
+    const page = await browser.newPage();
+
+    await page.goto(
+      `data:text/html;charset=utf-8,${ contentDocument }`,
+      {
+        waitUntil: 'networkidle0'
+      }
+    );
+
+    const pdf = await page.pdf(options);
+
+    await browser.close();
+
+    return pdf;
+  }
+
+  getDocumentContent() {
     const source = readFileSync(
       join(__dirname, '../templates/document.hbs'),
       {
